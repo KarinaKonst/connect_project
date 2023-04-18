@@ -1,9 +1,9 @@
 package com.example.connect_project.controller;
 
-import com.example.connect_project.entity.AtmEntity;
-import com.example.connect_project.repository.AtmRepository;
+import com.example.connect_project.model.dto.ClientDto;
+import com.example.connect_project.model.entity.AtmEntity;
+import com.example.connect_project.model.entity.ClientInfoEntity;
 import com.example.connect_project.service.AtmService;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,11 +13,11 @@ import java.util.List;
 @RequestMapping("/api")
 public class AtmController {
 
-@Autowired
-private AtmService atmService;
+    @Autowired
+    private AtmService atmService;
 
     @PostMapping("/savetobase")
-    public String saveToBase(@RequestBody AtmEntity atm){
+    public String saveToBase(@RequestBody AtmEntity atm) {
         String result = atmService.generateDateAndSaveToBase(atm);
 
         return result;
@@ -25,23 +25,24 @@ private AtmService atmService;
 
 
     @GetMapping("/getinfo/{lastname}")
-    public AtmEntity getInfo(@PathVariable String lastname){
-        AtmEntity infoToLastname = atmService.getInfoToLastname(lastname);
+    public ClientInfoEntity getInfo(@PathVariable String lastname) {
+        ClientInfoEntity infoToLastname = atmService.getInfoToLastname(lastname);
 
         return infoToLastname;
     }
+
     @GetMapping("/getinf/{firstname}")
-    public AtmEntity getInf(@PathVariable String firstname){
-        AtmEntity infoToFirstName = atmService.getInfoToFirstname(firstname);
+    public ClientInfoEntity getInf(@PathVariable String firstname) {
+        ClientInfoEntity infoToFirstName = atmService.getInfoToFirstname(firstname);
 
         return infoToFirstName;
     }
+
     @GetMapping("/getinfofirstname/{firstname}")
-    public List<AtmEntity> getInfoFirstname(@PathVariable String firstname){
-        List<AtmEntity> entitiesInfoToFirstname=atmService.getAtmEntitiesByFirstName(firstname);
+    public List<ClientDto> getInfoFirstname(@PathVariable String firstname) {
+        List<ClientDto> entitiesInfoToFirstname = atmService.getFullInfoByFirstName(firstname);
         return entitiesInfoToFirstname;
     }
-
 
 
 }
