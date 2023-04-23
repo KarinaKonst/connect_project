@@ -8,10 +8,14 @@ import java.util.List;
 
 public interface AtmService {
     public String generateDateAndSaveToBase(AtmEntity atmEntity);
+
     public ClientInfoEntity getInfoToLastname(String lastname);
-public ClientInfoEntity getInfoToFirstname(String firstname);
-public List<ClientDto> getAtmEntitiesByFirstName(String firstname);
-public List<ClientDto> getFullInfoByFirstName(String firstname);
+
+    public ClientInfoEntity getInfoToFirstname(String firstname);
+
+    public List<ClientDto> getAtmEntitiesByFirstName(String firstname);
+
+    public List<ClientDto> getFullInfoByFirstName(String firstname);
 
 
 }

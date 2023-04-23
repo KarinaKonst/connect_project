@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -66,13 +67,17 @@ public class AtmServiceImpl implements AtmService {
 
 public List<ClientDto> getFullInfoByFirstName(String firstname){
         List<ClientInfoEntity> entities=clietInfoRepository.getAtmEntitiesList(firstname);
-        List<ClientDto> listResult=new ArrayList<>();
+//        List<ClientDto> listResult=new ArrayList<>();
+    List<ClientDto> collect = entities.stream()
+            .map(o -> fullFieldsMapper.getFullMappingEntityToDto(o))
+            .collect(Collectors.toList());
 
-        for(ClientInfoEntity a:entities){
-            ClientDto mappingEntityToDto= fullFieldsMapper.getFullMappingEntityToDto(a);
-            listResult.add(mappingEntityToDto);
-        }
-        return listResult;
+
+//    for(ClientInfoEntity a:entities){
+//            ClientDto mappingEntityToDto= fullFieldsMapper.getFullMappingEntityToDto(a);
+//            listResult.add(mappingEntityToDto);
+//        }
+        return collect;
 }
 
 
